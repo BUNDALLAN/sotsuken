@@ -33,7 +33,7 @@ def close_connection(exception):
 # グローバル接続変数
 connection = get_db_connection()
 
-model = YOLO("/Users/princessabigailbundallan/Desktop/sotsuken/runs/detect/train/weights/best.pt")
+model = YOLO("sotsuken/runs//detect/train/weights/best.pt")
 
 # メニュー画面
 @app.route("/")
