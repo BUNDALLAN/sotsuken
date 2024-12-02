@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在庫確認</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            background-color: #f44336; /* 緑色 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #f44336; /* ボタンホバー時の色 */
+        }
+    </style>
+</head>
+<body>
+    <h1>在庫確認</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>商品名</th>  <!-- 変更箇所 -->
+                <th>在庫数</th>
+                <th>更新</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if items %}
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item[1] }}</td>  <!-- 商品名 -->
+                        <td>{{ item[2] }}</td>  <!-- 在庫数 -->
+                        <td><a href="#">更新</a></td>  <!-- 在庫更新ボタン -->
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="3">在庫がありません</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <br>
+    <a href="/">メニューに戻る</a>
+</body>
+</html>

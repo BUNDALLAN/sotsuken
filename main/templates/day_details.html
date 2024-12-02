@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ year }}年{{ month }}月{{ day }}日の詳細</title>
+</head>
+<body>
+    <h1>{{ year }}年{{ month }}月{{ day }}日の在庫履歴</h1>
+
+    <table>
+        <tr>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>操作</th>
+        </tr>
+        {% for log in inbound_items %}
+        <tr>
+            <td>{{ log[0] }}</td>
+            <td>{{ log[1] }}</td>
+            <td>入庫</td>
+        </tr>
+        {% endfor %}
+        {% for log in outbound_items %}
+        <tr>
+            <td>{{ log[0] }}</td>
+            <td>{{ log[1] }}</td>
+            <td>出庫</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('calendar_view', year=year, month=month) }}">カレンダーに戻る</a>
+    <a href="/">メニューに戻る</a>
+</body>
+</html>
+
+

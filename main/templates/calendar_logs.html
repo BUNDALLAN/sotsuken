@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在庫履歴</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>{{ selected_date }} の在庫履歴</h1>
+    <table>
+        <tr>
+            <th>日時</th>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>操作</th>
+        </tr>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log[0].strftime('%Y-%m-%d %H:%M:%S') }}</td>  <!-- datetime をフォーマット -->
+            <td>{{ log[1] }}</td>
+            <td>{{ log[2] }}</td>
+            <td>{{ log[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/">メニューに戻る</a>
+</body>
+</html>
+

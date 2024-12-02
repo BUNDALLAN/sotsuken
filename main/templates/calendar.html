@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カレンダー</title>
+</head>
+<body>
+    <h1>{{ year }}年{{ month }}月</h1>
+
+    <a href="{{ url_for('calendar_view', year=prev_year, month=prev_month) }}">前月</a>
+    <a href="{{ url_for('calendar_view', year=next_year, month=next_month) }}">次月</a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>日</th>
+                <th>月</th>
+                <th>火</th>
+                <th>水</th>
+                <th>木</th>
+                <th>金</th>
+                <th>土</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for week in cal %}
+                <tr>
+                    {% for day in week %}
+                        <td>
+                            {% if day != 0 %}
+                                <a href="{{ url_for('day_details', year=year, month=month, day=day) }}">
+                                    {{ day }}
+                                </a>
+                                {% if day in day_logs %}
+                                    {% if day_logs[day].inbound != 0 or day_logs[day].outbound != 0 %}
+                                        <ul>
+                                            {% if day_logs[day].inbound != 0 %}
+                                                <li>入庫: {{ day_logs[day].inbound }}</li>
+                                            {% endif %}
+                                            {% if day_logs[day].outbound != 0 %}
+                                                <li>出庫: {{ day_logs[day].outbound }}</li>
+                                            {% endif %}
+                                        </ul>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+             
+    </table>
+
+    <!-- メニューに戻るボタン -->
+    <a href="/"><button>メニューに戻る</button></a>
+</body>
+</html>

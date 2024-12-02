@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>在庫更新</title>
+</head>
+<body>
+    <h1>{{ item[1] }} の在庫数更新</h1>
+    <form method="POST">
+        <label for="new_stock">新しい在庫数:</label>
+        <input type="number" id="new_stock" name="new_stock" value="{{ item[2] }}" required><br><br>
+        <button type="submit">更新</button>
+    </form>
+    <br>
+    <a href="{{ url_for('view_stock') }}"><button>戻る</button></a>
+</body>
+</html>
