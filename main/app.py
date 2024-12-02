@@ -15,19 +15,20 @@ video_stream = cv2.VideoCapture(0)
 # データベース接続
 def get_db_connection():
     try:
-        return mysql.connector.connect(
-             host=os.getenv("DB_HOST"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            database=os.getenv("DB_NAME")
+        connection = mysql.connector.connect(
+            host="dpg-ct6ko63v2p9s739jrfqg-a.singapore-postgres.render.com",  # Renderのホスト名
+            user="sotsuken",  # ユーザー名
+            password="cWg93VNcFF3vAeekqVEYtHn5L4MyUx6t",  # パスワード
+            database="inventory_db_kbfw"  # データベース名
         )
+        return connection
     except Error as e:
         print(f"Error: {e}")
         return None
 
 @app.teardown_appcontext
 def close_connection(exception):
-    if connection and connection.is_connected():
+    if 'connection' in globals() and connection.is_connected():
         connection.close()
 
 # グローバル接続変数
