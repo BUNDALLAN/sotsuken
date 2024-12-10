@@ -1,0 +1,38 @@
+<!-- inbound_form.html (入庫処理) -->
+<form action="{{ url_for('inbound_update') }}" method="POST">
+  <!-- 商品名 (YOLO認識後に表示) -->
+  <label for="product_name">商品名</label>
+  <input type="text" id="product_name" name="product_name" value="{{ recognized_product }}" required readonly>
+  
+  <!-- 数量 (手動入力で設定) -->
+  <label for="quantity">数量</label>
+  <input type="number" id="quantity" name="quantity" required>
+
+  <button type="submit">入庫</button>
+</form>
+
+<!-- 戻るボタン -->
+<a href="/"><button class="back-btn">戻る</button></a>
+
+<!-- カメラ表示 -->
+<video id="video" width="400" height="300" autoplay></video>
+
+<script>
+  // カメラを起動するJavaScriptコード
+  let video = document.getElementById('video');
+    let recognizedProduct = document.getElementById('product_name');
+    
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function(error) {
+                console.log("カメラの起動に失敗しました: ", error);
+            });
+  }
+
+  // YOLO認識後に認識された商品を表示 (ここでJavaScriptでデータを取得し、商品名を設定)
+  // 例: recognizedProduct.value = 'takoyaki';
+</script>

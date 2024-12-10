@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出庫結果</title>
+</head>
+<body>
+    <h1>{{ product_name }} が認識されました。</h1>
+    <form method="POST" action="{{ url_for('inventory_update', action='outbound') }}">
+        <label for="quantity">出庫数量：</label>
+        <input type="number" name="quantity" id="quantity" min="1" required>
+        <input type="hidden" name="product_name" value="{{ product_name }}">
+        <input type="submit" value="出庫">
+    </form>
+    <a href="{{ url_for('index') }}">メニューに戻る</a>
+</body>
+</html>

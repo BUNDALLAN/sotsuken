@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>在庫管理メニュー</title>
+    <!-- jQueryを追加 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@3.2.0/dist/fullcalendar.min.css">
+
+</head>
+<body>
+    <h1>在庫管理メニュー</h1>
+    <ul>
+        <li><a href="/inbound">入庫</a></li>
+        <li><a href="/outbound">出庫</a></li>
+        <li><a href="/view_stock">在庫確認</a></li>
+        <li><a href="/calendar">入庫・出庫履歴カレンダー</a></li>
+    </ul>
+    
+    
+    </table>
+
+    <!-- カレンダーの表示領域 -->
+    <h2>在庫不足</h2>
+    <ul>
+        {% if low_stock_items %}
+          {% for item in low_stock_items %}
+            <li>{{ item[0] }}</li>  <!-- item_nameを表示 -->
+          {% endfor %}
+        {% else %}
+          <li>在庫が少ない商品はありません</li>
+        {% endif %}
+      </ul>
+  
+
+    <div id="calendar"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                events: "/get_calendar_events", // イベントを取得するURL
+                eventClick: function(event) {
+                    window.location.href = '/get_logs/' + event.start.format('YYYY-MM-DD');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+

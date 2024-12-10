@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カメラフィード</title>
+</head>
+<body>
+    <h1>カメラフィード</h1>
+    <div>
+        <img src="/video_feed" alt="カメラ映像" id="camera_feed" width="400" height="300">
+    </div>
+    <div id="productRecognition" style="display:none;">
+        <p id="recognizedProduct">商品名: </p>
+        <label for="quantity">数量:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1">
+        <button onclick="updateStock('inbound')">入庫</button>
+        <button onclick="updateStock('outbound')">出庫</button>
+        
+    </div>
+    <button onclick="returnToMenu()">メニューに戻る</button>
+
+    <script>
+        function returnToMenu() {
+            window.location.href = "/";
+        }
+
+        function updateStock(mode) {
+            const quantity = document.getElementById('quantity').value;
+            const productName = document.getElementById('recognizedProduct').innerText.replace('商品名: ', '');
+
+            if (!productName) {
+                alert("商品が認識されていません。");
+                return;
+            }
+
+            fetch(`/inventory_update/${mode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ product_name: productName, quantity: quantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || data.error);
+                if (data.message) {
+                    returnToMenu();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("更新処理に失敗しました。");
+            });
+        }
+    </script>
+</body>
+</html>
