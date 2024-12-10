@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.debug = True
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'jpeg', 'png'}
-app.config['SERVER_NAME'] = '192.168.11.22:5000'  # ローカル環境の場合
+app.config['SERVER_NAME'] = '192.168.11.22:5432'  # ローカル環境の場合
 
 # グローバル変数
 video_stream = cv2.VideoCapture(0)
@@ -21,10 +21,10 @@ video_stream = cv2.VideoCapture(0)
 def get_db_connection():
     try:
         return mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="Gina@mart1",
-            database="inventory_db"
+            host="dpg-ct6ko63v2p9s739jrfqg-a",
+            user="sotsuken",
+            password="cWg93VNcFF3vAeekqVEYtHn5L4MyUx6t",
+            database="inventory_db_kbfw"
         )
     except Error as e:
         print(f"Error: {e}")
